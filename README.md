@@ -6,6 +6,10 @@ How few small edits to a URL does it take to fool them? (RQ3)
 Can training on edited URLs fix that? (RQ4)
 
 
-2014 Data obtained from
+1/1/14 Data obtained from
 https://research.aalto.fi/en/datasets/phishstorm-phishing-legitimate-url-dataset/
 
+10/19/26 data obtained from
+https://zenodo.org/records/23477065
+
+note: data date is when it was compiled, not when each website was made
