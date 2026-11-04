@@ -19,10 +19,9 @@ df_cleaned = df_cleaned[df_cleaned["url"].str.contains(valid_web_url_pattern, re
 # Remove duplicate items
 df_cleaned = df_cleaned.drop_duplicates()
 
-# Add URL len column, remove urls longer than 1000 chars
+# Remove urls longer than 1000 chars
 df_cleaned["url"] = df_cleaned["url"].astype(str)
-df_cleaned["url_len"] = df_cleaned["url"].str.len()
 
-df_cleaned = df_cleaned[df_cleaned["url_len"] <= 1000]
+#df_cleaned = df_cleaned[df_cleaned["url_len"] <= 1000]
 
 df_cleaned.to_csv("data/processed/2014_data_cleaned.csv", index=False)
