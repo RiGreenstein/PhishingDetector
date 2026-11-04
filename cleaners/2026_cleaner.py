@@ -7,10 +7,14 @@ def handle_bad_line(line_parts):
     bad_lines_log.append(line_parts)
     return None
 
-df = pd.read_csv("data/raw/2026_data.csv", sep=";", encoding="latin1", on_bad_lines=handle_bad_line, engine="python")
+df = pd.read_csv("data/raw/2026_data.csv", sep=";", encoding="utf-8", encoding_errors="replace", on_bad_lines=handle_bad_line, engine="python")
 
 # Keep only a select few data columns
 df_cleaned = df[["url", "label"]]
+
+# Filter corrupted rows
+valid_web_url_pattern = r'^(?:https?://|www\.)[\x21-\x7E]+$'
+df_cleaned = df_cleaned[df_cleaned["url"].str.contains(valid_web_url_pattern, regex=True, na=False, case=False)]
 
 # Replace "legitimate" with 0.0 and "phishing" with 1.0
 df_cleaned["label"] = df_cleaned["label"].replace({"phishing": 1.0, "legitimate": 0.0})
@@ -18,8 +22,10 @@ df_cleaned["label"] = df_cleaned["label"].replace({"phishing": 1.0, "legitimate"
 # Remove duplicate items
 df_cleaned.drop_duplicates()
 
-# Add URL len column
+# Add URL len column, remove urls longer than 1000 chars
 df_cleaned["url"] = df_cleaned["url"].astype(str)
 df_cleaned["url_len"] = df_cleaned["url"].str.len()
+
+df_cleaned = df_cleaned[df_cleaned["url_len"] <= 1000]
 
 df_cleaned.to_csv("data/processed/2026_data_cleaned.csv", index=False)
