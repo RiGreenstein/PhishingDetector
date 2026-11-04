@@ -1,5 +1,5 @@
 import pandas as pd
-df = pd.read_csv("data/processed/2014_data_cleaned.csv", encoding="latin1", low_memory=False, on_bad_lines="skip")
+df = pd.read_csv("data/processed/2026_data_cleaned.csv", encoding="latin1", low_memory=False, on_bad_lines="skip")
 old_lengths_phishing = []
 old_lengths_legit = []
 
@@ -36,3 +36,6 @@ for i in range(len(old_lengths_legit)):
 
 print()
 print(max(old_lengths_phishing))
+
+print(totalPhishing)
+print(totalLegit)
