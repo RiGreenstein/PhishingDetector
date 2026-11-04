@@ -15,4 +15,11 @@ df_cleaned = df[["url", "label"]]
 # Replace "legitimate" with 0.0 and "phishing" with 1.0
 df_cleaned["label"] = df_cleaned["label"].replace({"phishing": 1.0, "legitimate": 0.0})
 
+# Remove duplicate items
+df_cleaned.drop_duplicates()
+
+# Add URL len column
+df_cleaned["url"] = df_cleaned["url"].astype(str)
+df_cleaned["url_len"] = df_cleaned["url"].str.len()
+
 df_cleaned.to_csv("data/processed/2026_data_cleaned.csv", index=False)

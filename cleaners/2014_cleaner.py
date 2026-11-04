@@ -10,5 +10,13 @@ def handle_bad_line(line_parts):
 df = pd.read_csv("data/raw/2014_data.csv", encoding="latin1", on_bad_lines=handle_bad_line, engine="python")
 
 # Keep only a select few data columns
-df_cleaned = df[["domain", "label"]]
+df_cleaned = df[["url", "label"]]
+
+# Remove duplicate items
+df_cleaned.drop_duplicates()
+
+# Add URL len column
+df_cleaned["url"] = df_cleaned["url"].astype(str)
+df_cleaned["url_len"] = df_cleaned["url"].str.len()
+
 df_cleaned.to_csv("data/processed/2014_data_cleaned.csv", index=False)
