@@ -1,6 +1,6 @@
 import pandas as pd
-df = pd.read_csv("processed_data/2014_data_cleaned.csv", encoding="latin1", low_memory=False)
+df = pd.read_csv("data/raw/2026_data.csv", encoding="latin1", low_memory=False, on_bad_lines="skip")
 
 print(df.shape)
 print(df.columns.to_list())
-print(df["label"].value_counts())
+#print(df["url"].value_counts())
