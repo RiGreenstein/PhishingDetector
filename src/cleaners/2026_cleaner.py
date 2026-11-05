@@ -23,6 +23,6 @@ df_cleaned["label"] = df_cleaned["label"].replace({"phishing": 1.0, "legitimate"
 df_cleaned.drop_duplicates()
 
 # Remove urls longer than 1000 chars
-df_cleaned = df_cleaned[df_cleaned["url_len"] <= 1000]
+#df_cleaned = df_cleaned[df_cleaned["url_len"] <= 1000]
 
 df_cleaned.to_csv("data/processed/2026_data_cleaned.csv", index=False)
