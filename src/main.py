@@ -1,41 +1,24 @@
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
 import pandas as pd
-df = pd.read_csv("data/processed/2026_data_cleaned.csv", encoding="latin1", low_memory=False, on_bad_lines="skip")
-old_lengths_phishing = []
-old_lengths_legit = []
 
-#print(df["url"].value_counts())
+df = pd.read_csv("data/processed/2014_data_cleaned.csv", encoding="latin1", low_memory=False, on_bad_lines="skip")
 
-# p = 1, l = 0
-# Calculate avg phishing length
-# Calculate avg legit length
+x = df["url"]
+y = df["label"]
 
-totalPhishing = 0
-totalPhishingLen = 0
-totalLegit = 0
-totalLegitLen = 0
+X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.2, random_state=67)
 
-for i, row in df.iterrows():
-    if row["label"] == 1.0:
-        totalPhishingLen += int(row["url_len"])
-        totalPhishing += 1
-        old_lengths_phishing.append(int(row["url_len"]))
-    else:
-        totalLegitLen += int(row["url_len"])
-        totalLegit += 1
-        old_lengths_legit.append(int(row["url_len"]))
+# Create and train model
+model = LogisticRegression()
+model.fit(X_train, Y_train)
 
-avgPhishing = totalPhishingLen / totalPhishing
-avgLegit = totalLegitLen / totalLegit
+# Predict based off test data
+Y_prediction = model.predict(X_test)
 
-print(avgPhishing)
-print(avgLegit)
-
-
-for i in range(len(old_lengths_legit)):
-    print(str(old_lengths_legit[i]) + ",", end="")
-
-print()
-print(max(old_lengths_phishing))
-
-print(totalPhishing)
-print(totalLegit)
+# Evaluate accuracy
+acc = accuracy_score(Y_test, Y_prediction)
+print("Accuracy: ", acc)
