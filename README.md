@@ -1,3 +1,5 @@
+NOT VIBECODED
+
 Phishing URL classifiers trained on public benchmark datasets often report more than 95% accuracy. How much does that drop when they are tested on newly collected phishing URLs and on URLs with small edits that keep the same meaning? And can simple fixes recover the lost accuracy?
 
 Are the 95%+ scores inflated by how the data is split? (RQ1)
